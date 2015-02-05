@@ -16,6 +16,15 @@ Asuming that all devices are connected to the same network we need a way to find
 ## Network setup
 In many cases we can't assume that a network where all the devices are connected exists. We need a way to create networks that devices can freely join and leave without interrupting the connections of the devices already connected
 
+## Use Cases
+
+- Ability to serve a remote client to the local network from a device (eg. remote SMS app being served to IE6 on the same LAN).
+- Apps can expose specific data endpoints to other nearby devices (eg. gallery serving images/videos, a contacts app exposing contact JSON/vcard).
+- Uploading (pushing) files to another device (eg. sharing media between devices).
+- Communicate with existing non-web remote hardware (eg. FitBit).
+- Subscription to uni-directional 'server' push (eg. low-energy heart-rate monitor, smart-watch displaying arbitrary notifications from phone).
+- Bi-directional socket connection between two apps (eg. multi-player gaming, local messaging, remote controlling a flying drone).
+
 ## Discovery
 
 ### HTTP GET
@@ -28,13 +37,13 @@ navigator.service.watch(query).then(callback);
 
 function callback(matches) {
   var service = matches[0];
-  
+
   service.connect().then((connection) => {
     var url = serivice.endpoints.get; // http://diego-phone.local/contacts-app/
     var request = new XMLHttpRequest();
     request.open('get', url, true);
     request.send();
-    
+
     request.onload = (e) => {
       console.log(request.responseText);
       connection.close();
@@ -45,7 +54,7 @@ function callback(matches) {
 
 ```js
 navigator.service.discover({ type: 'image/*' }).then((imageServices) => {
-  
+
   imageServices.map((service) => {
     var request = new XMLHttpRequest();
     request.open('get', service.endpoint, true);
@@ -71,7 +80,7 @@ watcher.addEventListener('change'
 navigator.service.discover({ uri: 'fitbit.com' }).then((matches) => {
   var fitbitService = matches[0];
   var socket = new WebSocket(fitbit.endpoints.heartrate);
-  
+
   socket.onmessage = (event) => {
     console.log(event.data);
   };
@@ -98,7 +107,7 @@ navigator.service.register.post('/upload', function(req, res) {
 navigator.service.register.socket('/heartbeat', {
   onRequest: function(request) {
     var connection = request.accept('accepted', request.origin);
-  
+
     connection.onmessage = (event) => { ... };
     connection.onclose = (event) => { ... };
   }
