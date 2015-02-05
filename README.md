@@ -16,6 +16,13 @@ Asuming that all devices are connected to the same network we need a way to find
 ## Network setup
 In many cases we can't assume that a network where all the devices are connected exists. We need a way to create networks that devices can freely join and leave without interrupting the connections of the devices already connected
 
+## Authentication (undecided)
+
+How does the user grant permission to incoming requests?
+
+- A. User-agent intervention via a trusted UI (ie. iOS)
+- B. Let the app handle auth just like a traditional server (eg. cookies)
+
 ## Use Cases
 
 - Ability to serve a remote client to the local network from a device (eg. remote SMS app being served to IE6 on the same LAN).
@@ -95,7 +102,11 @@ navigator.service.discover({ uri: 'fitbit.com' }).then((matches) => {
 navigator.service.register.get('/data', function(req, res) {
   res.send({ some: 'data' });
 });
+```
 
+### File Uploads
+
+```js
 navigator.service.register.post('/upload', function(req, res) {
   // ...
 });
