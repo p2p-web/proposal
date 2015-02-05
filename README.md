@@ -39,21 +39,21 @@ How does the user grant permission to incoming requests?
 ```js
 var query = { type: 'json/contact' };
 
-navigator.service.discover(query).then(callback);
-navigator.service.watch(query).then(callback);
-
-function callback(matches) {
+navigator.service.discover(query).then((matches) => {
   var service = matches[0];
 
-  service.connect().then((connection) => {
-    var url = serivice.endpoints.get; // http://diego-phone.local/contacts-app/
-    var request = new XMLHttpRequest();
+  service.connect().then(() => {
+    service.open()
+
+    var url = service.endpoints.get; // http://<device-ip>:<app-port>/contacts/
+    var request = new service.Request();
+
     request.open('get', url, true);
     request.send();
 
     request.onload = (e) => {
       console.log(request.responseText);
-      connection.close();
+      service.disconnect();
     };
   });
 });
@@ -75,10 +75,12 @@ navigator.service.discover({ type: 'image/*' }).then((imageServices) => {
 
 ### Watching Services
 
-```js
-var watcher = navigator.service.watch('fitbit.com');
+An app may want to 'watch' so that it can re-connect to a known service that the user has chosen before.
 
-watcher.addEventListener('change'
+```js
+var watcher = navigator.service.watch('fitbit.com', (services) => {
+  // ... service matches found
+});
 ```
 
 ### Real-time Socket
