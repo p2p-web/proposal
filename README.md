@@ -4,7 +4,7 @@
 
 The proliferation of inexpensive connected devices has created a situation where a person, at any given moment, is surrounded by multiple interactive computers: personal and other peoples' devices or appliances with built in processors and network capabilities.
 
-Today, there's no way for web-applications to utilize the devices in a user's proximity. Native applications on Android and iOS have these capabilities via propitiatory SDKs.
+Today, there's no way for web-applications to utilize the devices in a user's proximity. Native applications on Android and iOS have these capabilities via propietary SDKs.
 
 We believe the browser can become the platform agnostic channel to build interactions that take advantage of multiple devices and screens. This document contains a proposal for a high level API and security model for devices to consume and expose services and manage the connections of devices nearby.
 
