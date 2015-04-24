@@ -144,3 +144,7 @@ The socket based API would allow devices to expose a service, but without an adv
 Again we'd propose that this be an abstraction on top of whatever transport types the user-agent may have at its disposal.
 
 Under the hood the user-agent would advertise on LAN (*mDNS/uPnP/DIAL*), Wifi-direct and Bluetooth to reach as many devices as possible. For example if Device A only has *Bluetooth* turned on, it is still able to discover Device B which is advertising on LAN, *Bluetooth* and *Wifi-Direct*.
+
+## References
+
+* [W3C Working Draft - Network Service Discovery](http://www.w3.org/TR/discovery-api/)
